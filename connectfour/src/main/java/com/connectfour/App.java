@@ -1,5 +1,7 @@
 package com.connectfour;
 
+import java.util.Scanner;
+
 /**
  * Create connect 4, 7 x 6 grid
  *
@@ -15,11 +17,25 @@ public class App
     {
         // Create empty array for board
         char[][] board = new char[width][length];
+        // Bool for gameOver, initialized to false
+        boolean gameOver = false;
+        // Set Red to start
+        String currentPlayer = red;
+        // Set initial inputChar
+        char inputChar = ' ';
         // New game
         board = newGame(board);
         welcome();
-        //print board
-        printBoard(board);
+        // Loop until winner
+        while(!gameOver){
+            // Print board
+            printBoard(board);
+            // Get player input
+            inputChar = getInput(currentPlayer);
+            // Update board
+            // Check if winner
+            // Switch player
+        }
     }
     // Empty game and restart
     private static char[][] newGame(char[][] board){
@@ -61,5 +77,45 @@ public class App
         System.out.printf("\na row horizontally, vertically, or diagonally");
         printBigLine();
 
+    }
+    // Get input
+    private static char getInput(String currentPlayer){
+        // Create scanner object
+        Scanner scan = new Scanner(System.in);
+        // Blank input
+        String stringInput = "";
+        char charInput = ' ';
+        // validity check
+        boolean validMove = false;
+        // Loop until valid move
+        while(!validMove){
+            // Prompt for input
+            System.out.printf("\n%s player select column: ", currentPlayer);
+            // Get user input
+            stringInput = scan.nextLine();
+            // Take first char and go toUpper
+            stringInput = stringInput.toUpperCase();
+            charInput = stringInput.charAt(0);
+            // Check if legal
+            validMove = isLegal(charInput);
+            // Print error if applicable
+            if(!validMove){
+                System.out.printf("\nInvalid column selection, please try again");
+            }
+        }
+        return charInput;
+
+    }
+    // Check if input is legal
+    private static boolean isLegal(char charInput){
+        // Applicable options
+        char[] legalOptions = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+        // Loop through to see if valid input
+        for (int i = 0; i < legalOptions.length; i++){
+            if (charInput == legalOptions[i]){
+                return true;
+            }
+        }
+        return false;
     }
 }
