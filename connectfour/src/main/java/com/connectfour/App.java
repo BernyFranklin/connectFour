@@ -32,7 +32,16 @@ public class App
             printBoard(board);
             // Get player input
             inputChar = getInput(currentPlayer);
+            // Is col full?
+            boolean colFull = false;
+            colFull = isFull(colFull, board, inputChar);
+            // If full restart loop
+            if(colFull){
+                System.out.printf("\n!!!!That column is full, please try again!!!!\n");
+                continue;
+            }
             // Update board
+            updateBoard(board, inputChar, currentPlayer);
             // Check if winner
             // Switch player
             currentPlayer = switchPlayer(currentPlayer);
@@ -94,6 +103,10 @@ public class App
             System.out.printf("\n%s player select column: ", currentPlayer);
             // Get user input
             stringInput = scan.nextLine();
+            // If user fails to input ANYTHING
+            if (stringInput == ""){
+                stringInput = " ";
+            }
             // Take first char and go toUpper
             stringInput = stringInput.toUpperCase();
             charInput = stringInput.charAt(0);
@@ -129,5 +142,64 @@ public class App
             currentPlayer = red;
         }
         return currentPlayer;
+    }
+    // Update board
+    private static char[][] updateBoard(char[][] board, char inputChar, String currentPlayer){
+        // Get index
+        int colIndex = getIndex(inputChar);
+        // Proceed to update board
+        for(int i = width - 1; i >= 0; i--){
+            if(board[i][colIndex] == 'O'){
+                // Take first letter of player string
+                char marker = currentPlayer.charAt(0);
+                board[i][colIndex] = marker;
+                break;
+            }
+        }
+        return board;
+    }
+    // Get index colum
+    private static int getIndex(char inputChar){
+        int colIndex;
+        switch(inputChar){
+            case 'A':
+                colIndex = 0;
+                break;
+            case 'B':
+                colIndex = 1;
+                break;
+            case 'C':
+                colIndex = 2;
+                break;
+            case 'D':
+                colIndex = 3;
+                break;
+            case 'E':
+                colIndex = 4;
+                break;
+            case 'F':
+                colIndex = 5;
+                break;
+            case 'G':
+                colIndex = 6;
+                break;
+            default:
+                // SHOULD never execute
+                colIndex = 7;
+                break;
+        }
+        return colIndex;
+    }
+    // Is full?
+    private static boolean isFull(boolean colFull, char[][] board, char inputChar){
+        // Get the index for column
+        int colIndex = getIndex(inputChar);
+        // Loop backwards through index to find first O
+        for(int i = width - 1; i >= 0; i--){
+            if(board[i][colIndex] == 'O'){
+                return false;
+            }
+        }
+        return true;
     }
 }
