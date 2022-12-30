@@ -8,12 +8,16 @@ public class App
 {
     private static final int length = 7;
     private static final int width = 6;
+    private static final String red = "Red";
+    private static final String black = "Black";
+    // Main program
     public static void main( String[] args )
     {
         // Create empty array for board
         char[][] board = new char[width][length];
         // New game
         board = newGame(board);
+        welcome();
         //print board
         printBoard(board);
     }
@@ -48,5 +52,14 @@ public class App
     // Big line
     private static void printBigLine(){
         System.out.printf("\n--------------------------------------------------");
+    }
+    // Welcome message
+    private static void welcome(){
+        System.out.printf("\nWelcome to Connect Four!");
+        printBigLine();
+        System.out.printf("\nPlayers will alternate until they connect four in");
+        System.out.printf("\na row horizontally, vertically, or diagonally");
+        printBigLine();
+
     }
 }
