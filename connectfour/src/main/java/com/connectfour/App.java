@@ -231,7 +231,7 @@ public class App
             count = 0;
             for(int j = 0; j < length; j++){
                 // If empty restart count
-                if(board[i][j] == 'O'){
+                if(board[i][j] != marker){
                     count = 0;
                 }
                 // Update counter if players marker
@@ -254,7 +254,7 @@ public class App
             count = 0;
             for(int j = 0; j < width; j++){
                 // If empty restart count
-                if(board[j][i] == 'O'){
+                if(board[j][i] != marker){
                     count = 0;
                 }
                 else if (board[j][i] == marker){
