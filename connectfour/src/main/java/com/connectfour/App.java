@@ -30,6 +30,8 @@ public class App
         printBoard(board);
         // Loop until winner
         while(!gameOver){
+            // Switch player
+            currentPlayer = switchPlayer(currentPlayer);
             // Get player input
             inputChar = getInput(currentPlayer);
             // Is col full?
@@ -46,9 +48,9 @@ public class App
             printBoard(board);
             // Check if winner
             gameOver = checkWinner(board, currentPlayer);
-            // Switch player
-            currentPlayer = switchPlayer(currentPlayer);
         }
+        // Game over message
+        System.out.printf("\n%s player wins!", currentPlayer);
     }
     // Empty game and restart
     private static char[][] newGame(char[][] board){
@@ -207,10 +209,15 @@ public class App
     }
     // Check for winner
     private static boolean checkWinner(char[][] board, String currentPlayer){
-        boolean winner = false;
+        boolean horizontal = false;
+        boolean vertical = false;
+        boolean diagonal = false;
         // Check horizontal
-        winner = checkHoriz(board, currentPlayer);
-        if(winner){
+        horizontal = checkHoriz(board, currentPlayer);
+        // Check vertical
+        vertical = checkVert(board, currentPlayer);
+
+        if(horizontal || vertical || diagonal){
             return true;
         }
         return false;
@@ -240,5 +247,27 @@ public class App
         return false;
     }
     // Check vertical
+    private static boolean checkVert(char[][] board, String currentPlayer){
+        int count = 0;
+        char marker = currentPlayer.charAt(0);
+        for(int i = 0; i < length; i++){
+            count = 0;
+            for(int j = 0; j < width; j++){
+                // If empty restart count
+                if(board[j][i] == 'O'){
+                    count = 0;
+                }
+                else if (board[j][i] == marker){
+                    count++;
+                }
+                // If 4 in a row reached return true
+                if(count == 4){
+                    return true;
+                }
+            }
+        }
+        // If reached, not 4 in row
+        return false;
+    }
     // Check diagonal
 }
