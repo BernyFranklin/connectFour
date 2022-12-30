@@ -10,8 +10,8 @@ public class App
 {
     private static final int length = 7;
     private static final int width = 6;
-    private static final String red = "Red";
-    private static final String black = "Black";
+    private static final String red = "red";
+    private static final String black = "black";
     // Main program
     public static void main( String[] args )
     {
@@ -26,10 +26,10 @@ public class App
         // New game
         board = newGame(board);
         welcome();
+        // Print board
+        printBoard(board);
         // Loop until winner
         while(!gameOver){
-            // Print board
-            printBoard(board);
             // Get player input
             inputChar = getInput(currentPlayer);
             // Is col full?
@@ -42,7 +42,10 @@ public class App
             }
             // Update board
             updateBoard(board, inputChar, currentPlayer);
+            // Print board
+            printBoard(board);
             // Check if winner
+            gameOver = checkWinner(board, currentPlayer);
             // Switch player
             currentPlayer = switchPlayer(currentPlayer);
         }
@@ -202,4 +205,40 @@ public class App
         }
         return true;
     }
+    // Check for winner
+    private static boolean checkWinner(char[][] board, String currentPlayer){
+        boolean winner = false;
+        // Check horizontal
+        winner = checkHoriz(board, currentPlayer);
+        if(winner){
+            return true;
+        }
+        return false;
+    }
+    // Check horizontal
+    private static boolean checkHoriz(char[][] board, String currentPlayer){
+        int count = 0;
+        char marker = currentPlayer.charAt(0);
+        for(int i = 0; i < width; i++){
+            // Restart count every row
+            count = 0;
+            for(int j = 0; j < length; j++){
+                // If empty restart count
+                if(board[i][j] == 'O'){
+                    count = 0;
+                }
+                // Update counter if players marker
+                else if(board[i][j] == marker){
+                    count++;
+                }
+                // If 4 in a row return true
+                if(count == 4){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    // Check vertical
+    // Check diagonal
 }
