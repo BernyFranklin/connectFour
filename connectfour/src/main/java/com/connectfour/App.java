@@ -35,6 +35,7 @@ public class App
             // Update board
             // Check if winner
             // Switch player
+            currentPlayer = switchPlayer(currentPlayer);
         }
     }
     // Empty game and restart
@@ -117,5 +118,16 @@ public class App
             }
         }
         return false;
+    }
+    // Switch players
+    private static String switchPlayer(String currentPlayer){
+        // Check what currentPlayer is then switch
+        if(currentPlayer == red){
+            currentPlayer = black;
+        }
+        else{
+            currentPlayer = red;
+        }
+        return currentPlayer;
     }
 }
