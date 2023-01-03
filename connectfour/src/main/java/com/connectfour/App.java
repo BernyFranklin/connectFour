@@ -276,6 +276,7 @@ public class App
         // iterate through entire board
         for(int i = 0; i < width; i++){
             for(int j = 0; j < length; j++){
+                // Check forward diagonals
                 winnerFound = forCheck(board, i, j, marker);
                 if (winnerFound){
                     break;
