@@ -212,10 +212,13 @@ public class App
         boolean horizontal = false;
         boolean vertical = false;
         boolean diagonal = false;
+        char marker = currentPlayer.charAt(0);
         // Check horizontal
-        horizontal = checkHoriz(board, currentPlayer);
+        horizontal = checkHoriz(board, marker);
         // Check vertical
-        vertical = checkVert(board, currentPlayer);
+        vertical = checkVert(board, marker);
+        // Check diagonal
+        diagonal = checkDiag(board, marker);
 
         if(horizontal || vertical || diagonal){
             return true;
@@ -223,9 +226,8 @@ public class App
         return false;
     }
     // Check horizontal
-    private static boolean checkHoriz(char[][] board, String currentPlayer){
+    private static boolean checkHoriz(char[][] board, char marker){
         int count = 0;
-        char marker = currentPlayer.charAt(0);
         for(int i = 0; i < width; i++){
             // Restart count every row
             count = 0;
@@ -247,9 +249,8 @@ public class App
         return false;
     }
     // Check vertical
-    private static boolean checkVert(char[][] board, String currentPlayer){
+    private static boolean checkVert(char[][] board, char marker){
         int count = 0;
-        char marker = currentPlayer.charAt(0);
         for(int i = 0; i < length; i++){
             count = 0;
             for(int j = 0; j < width; j++){
@@ -270,4 +271,47 @@ public class App
         return false;
     }
     // Check diagonal
+    private static boolean checkDiag (char[][] board, char marker){
+        boolean winnerFound = false;
+        // iterate through entire board
+        for(int i = 0; i < width; i++){
+            for(int j = 0; j < length; j++){
+                winnerFound = forCheck(board, i, j, marker);
+                if (winnerFound){
+                    break;
+                }
+            }
+            if(winnerFound){
+                break;
+            }
+        }
+        return winnerFound;
+    }
+    // Forward diagonal 
+    private static boolean forCheck(char[][] board, int row, int col, char marker){
+        int count = 0;
+        // If col < 3 or row > 2 no forward diag
+        if(row > 2 || col < 3){
+            return false;
+        }
+        else{
+            // Iterate across the board
+            for(int i = row, j = col; i < width && j >= 0; i++, j--){
+                // If matches marker, count++
+                if(board[row][col] == marker){
+                    count++;
+                }
+                else{
+                    // Reinitiate count
+                    count = 0;
+                }
+            }
+        }
+        // If 4 in a row return true
+        if(count == 4){
+            return true;
+        }
+        // No winner
+        return false;
+    }
 }
