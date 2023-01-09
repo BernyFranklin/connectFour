@@ -315,4 +315,30 @@ public class App
         // No winner
         return false;
     }
+    // Backward diagonal
+    private static boolean backCheck(char[][] board, int row, int col, char marker){
+        int count = 0;
+        // IF col > 2 or row > 3 no backward diag
+        if(row > 3 || col > 2){
+            return false;
+        }
+        else{
+            // Iterate across the board
+            for(int i = row, j = col; i < width && j < length; i++, j++){
+                // IF matches marker, count ++
+                if(board[row][col] == marker){
+                    count++;
+                }
+                else{
+                    // Reinitiate count;
+                }
+            }
+        }
+        // If 4 in a row return true
+        if(count == 4){
+            return true;
+        }
+        // No winner
+        return false;
+    }
 }
