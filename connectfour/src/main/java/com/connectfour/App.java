@@ -246,6 +246,7 @@ public class App
                 }
             }
         }
+        // No winner
         return false;
     }
     // Check vertical
@@ -279,6 +280,11 @@ public class App
                 // Check forward diagonals
                 winnerFound = forCheck(board, i, j, marker);
                 if (winnerFound){
+                    break;
+                }
+                // Check backward diagonals
+                winnerFound = backCheck(board, i, j, marker);
+                if(winnerFound){
                     break;
                 }
             }
