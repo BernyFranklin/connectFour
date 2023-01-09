@@ -305,7 +305,7 @@ public class App
             // Iterate across the board
             for(int i = row, j = col; i < width && j >= 0; i++, j--){
                 // If matches marker, count++
-                if(board[row][col] == marker){
+                if(board[i][j] == marker){
                     count++;
                 }
                 else{
@@ -332,11 +332,12 @@ public class App
             // Iterate across the board
             for(int i = row, j = col; i < width && j < length; i++, j++){
                 // IF matches marker, count ++
-                if(board[row][col] == marker){
+                if(board[i][j] == marker){
                     count++;
                 }
                 else{
-                    // Reinitiate count;
+                    // Reinitiate count
+                    count = 0;
                 }
             }
         }
